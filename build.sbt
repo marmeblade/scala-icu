@@ -4,21 +4,22 @@ Global / excludeLintKeys += scalaJSLinkerConfig
 
 inThisBuild(
   List(
-    organization := "com.indoorvivants",
-    organizationName := "Anton Sviridov",
+    version := "0.0.1",
+    organization := "works.perpetuum",
+    organizationName := "Perpetuum Works",
     homepage := Some(
-      url("https://github.com/indoorvivants/scala-library-template")
+      url("https://github.com/marmeblade/scala-icu")
     ),
-    startYear := Some(2020),
+    startYear := Some(2024),
     licenses := List(
       "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")
     ),
     developers := List(
       Developer(
-        "keynmol",
-        "Anton Sviridov",
-        "keynmol@gmail.com",
-        url("https://blog.indoorvivants.com")
+        "marmeblade",
+        "David Brügmann",
+        "marmeblade@gmail.com",
+        url("https://github.com/marmeblade")
       )
     )
   )
@@ -48,7 +49,10 @@ lazy val root = project.aggregate(core.projectRefs*)
 lazy val core = projectMatrix
   .in(file("modules/core"))
   .settings(
-    name := "core"
+    name := "core",
+    libraryDependencies += {
+      "com.lihaoyi" %%% "fastparse" % "3.1.1"
+    }
   )
   .settings(munitSettings)
   .jvmPlatform(scalaVersions)
@@ -56,7 +60,7 @@ lazy val core = projectMatrix
   .nativePlatform(scalaVersions, disableDependencyChecks)
   .enablePlugins(BuildInfoPlugin)
   .settings(
-    buildInfoPackage := "com.indoorvivants.library.internal",
+    buildInfoPackage := "works.perpetuum.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       version,
       scalaVersion,
@@ -67,7 +71,7 @@ lazy val core = projectMatrix
   )
 
 lazy val docs = project
-  .in(file("myproject-docs"))
+  .in(file("scala-icu-docs"))
   .settings(
     scalaVersion := Scala213,
     mdocVariables := Map(
